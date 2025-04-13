@@ -13,7 +13,8 @@ COURSE_TABLES = {
 }
 
 class QuizApp:
-    def __init__(self, root):
+    def __init__(self, root, return_to_main=None):
+        self.return_to_main = return_to_main
         self.root = root
         self.root.title("Quiz App")
         self.root.geometry("600x400")
@@ -23,6 +24,7 @@ class QuizApp:
         self.welcome_screen()
 
     def welcome_screen(self):
+        # ensure back functionality is preserved
         self.clear_screen()
         tk.Label(self.root, text="Welcome to the Quiz App", font=("Arial", 18)).pack(pady=20)
         tk.Label(self.root, text="Select a Quiz Category:").pack(pady=10)
@@ -33,6 +35,8 @@ class QuizApp:
         self.category_combo.pack(pady=10)
 
         tk.Button(self.root, text="Start Quiz", command=self.load_questions).pack(pady=10)
+        if self.return_to_main:
+            tk.Button(self.root, text="Back", command=self.return_to_main).pack(pady=5)
 
     def load_questions(self):
         category_name = self.category_var.get()

@@ -16,7 +16,8 @@ COURSE_TABLES = {
 
 
 class AdminApp:
-    def __init__(self, root):
+    def __init__(self, root, return_to_main=None):
+        self.return_to_main = return_to_main
         self.root = root
         self.root.title("Admin Login")
         self.root.geometry("500x500")
@@ -29,6 +30,8 @@ class AdminApp:
         self.password_entry = tk.Entry(self.root, show="*")
         self.password_entry.pack(pady=10)
         tk.Button(self.root, text="Login", command=self.check_login).pack(pady=10)
+        if self.return_to_main:
+            tk.Button(self.root, text="Back", command=self.return_to_main).pack(pady=5)
 
     def check_login(self):
         if self.password_entry.get() == ADMIN_PASSWORD:
